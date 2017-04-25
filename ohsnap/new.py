@@ -3,6 +3,7 @@ import argparse
 import os
 import os.path
 import pkg_resources
+import shutil
 
 
 parser = argparse.ArgumentParser()

@@ -67,7 +67,7 @@ rule c_mk_ctl_lbl:
 		ctl='{mod}/{phy}/{species_group}/codeml.ctl'
 	params: mem='1G', threads='1'
 	message: 'Generating control file for branch labelled model {wildcards.mod} and alignment {wildcards.phy}'
-	version: batcave.__version__
+	version: ohsnap.__version__
 	log: join('logs', 'codeml', '{mod}', '{phy}', '{species_group}', 'c_mk_ctl.log')
 	run:
 		cmp_anc_phy_names(input.species_tree, input.phy)
@@ -82,7 +82,7 @@ rule c_mk_ctl:
 		ctl='{mod}/{phy}/codeml.ctl'
 	params: mem='1G', threads='1'
 	message: 'Generating control file for unlabelled model {wildcards.mod} and alignment {wildcards.phy}'
-	version: batcave.__version__
+	version: ohsnap.__version__
 	log: join('logs', 'codeml', '{mod}', '{phy}', 'c_mk_ctl.log')
 	run:
 		cmp_anc_phy_names(input.species_tree, input.phy)
@@ -96,7 +96,7 @@ rule c_lbl_species_tree:
 		species_tree='{mod}/{phy}/{species_group}/{phy}_lbl.tfl'
 	params: mem='1G', threads='1'
 	message: 'Labelling pruned tree in {input.species_tree} with species in group {wildcards.species_group}'
-	version: batcave.__version__
+	version: ohsnap.__version__
 	log: join('logs', 'codeml', '{mod}', '{phy}', '{species_group}', 'c_lbl_species_tree.log')
 	run:
 		output_dir = abspath(split(output.species_tree)[0])
@@ -111,7 +111,7 @@ rule c_prune_species_tree:
 		species_tree='{mod}/{phy}/{phy}.tfl'
 	params: mem='1G', threads='1'
 	message: 'Pruning species tree {input.species_tree} with genes in {input.phy}'
-	version: batcave.__version__
+	version: ohsnap.__version__
 	log: join('logs', 'codeml', '{mod}', '{phy}', 'c_prune.log')
 	run:
 		output_dir = abspath(split(output.species_tree)[0])

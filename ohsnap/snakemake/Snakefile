@@ -5,7 +5,7 @@ import pkg_resources
 configfile: 'proj.config'
 
 
-include: pkg_resources('ohsnap', 'snakemake/rules/codeml.rules')
+include: pkg_resources.resource_filename('ohsnap', 'snakemake/rules/codeml.rules')
 
 
 rule all:
