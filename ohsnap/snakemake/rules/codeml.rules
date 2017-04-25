@@ -1,7 +1,7 @@
-from batcave.lib.tools.codeml import cmp_anc_phy_names, get_output_files_phy_names, label_species_tree, prune_species_tree, write_control_file
-from batcave.lib.util import checkcmdlist, mkdir_p, versioncmd
+from ohsnap.codeml import cmp_anc_phy_names, get_output_files_phy_names, label_species_tree, prune_species_tree, write_control_file
+from ohsnap.util import checkcmdlist, mkdir_p, versioncmd
 from os.path import abspath, join, split, splitext
-import batcave
+import ohsnap
 import subprocess
 
 

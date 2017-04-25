@@ -1,7 +1,7 @@
 from Bio import Phylo
 from Bio.Phylo.Newick import Clade
 from snakemake.io import expand
-from util import mkdir_p
+from ohsnap.util import mkdir_p
 import os
 import os.path
 

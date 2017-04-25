@@ -1,10 +1,11 @@
 from os.path import join
+import pkg_resources
 
 
 configfile: 'proj.config'
 
 
-include: "rules/codeml.rules"
+include: pkg_resources('ohsnap', 'snakemake/rules/codeml.rules')
 
 
 rule all:
