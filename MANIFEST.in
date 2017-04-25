@@ -1,0 +1,15 @@
+include ohsnap/snakemake/proj.config
+include ohsnap/snakemake/Snakefile
+include ohsnap/snakemake/rules/codeml.rules
+include ohsnap/example/proj.config
+include ohsnap/example/branch_lbls/myotis.txt
+include ohsnap/example/branch_lbls/nmr.txt
+include ohsnap/example/data/species.tfl
+include ohsnap/example/models/alt.mod
+include ohsnap/example/models/CladeModelC.mod
+include ohsnap/example/models/M2aRel.mod
+include ohsnap/example/models/null.mod
+include ohsnap/example/phy/CBX1.phy
+include ohsnap/example/phy/CBX3.phy
+include ohsnap/example/phy/CHEK2.phy
+include ohsnap/example/phy/MEI4.phy

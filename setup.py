@@ -13,7 +13,7 @@ setuptools.setup(name='OHSNAP',
 	author_email='michael.clarke@ucd.ie',
 	url='https://github.com/batlabucd/OHSNAP',
 	packages=['ohsnap'],
-	package_data=package_data,
+	include_package_data=True,
 	entry_points = {
         'console_scripts': [ 
         	'ohsnap_new = ohsnap.new:main'
