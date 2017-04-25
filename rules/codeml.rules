@@ -1,0 +1,121 @@
+from batcave.lib.tools.codeml import cmp_anc_phy_names, get_output_files_phy_names, label_species_tree, prune_species_tree, write_control_file
+from batcave.lib.util import checkcmdlist, mkdir_p, versioncmd
+from os.path import abspath, join, split, splitext
+import batcave
+import subprocess
+
+
+checkcmdlist(['codeml'])
+
+
+all_files = locals().get('all_files')
+if all_files is None:
+	all_files = []
+all_files += get_output_files_phy_names(config['branchlbl_dir'], config['mod_dir'], config['phy_dir'], config['labelled_models'])
+
+
+rule c_mk_output:
+	input:
+		codeml=get_output_files_phy_names(config['branchlbl_dir'], config['mod_dir'], config['phy_dir'], config['labelled_models'])
+	output:
+		codeml='output/{species_group}/{phy}.{mod}.out'
+	params: mem='16G', threads='1'
+	version: '1.0'
+	log: join('logs', 'codeml', 'mk_output.log')
+	run:
+		mkdir_p(split(output.codeml)[0])
+		shell('cp {input.codeml} output/')
+
+rule c_codeml_lbl:
+	input:
+		species_tree='{mod}/{phy}/{species_group}/{phy}_lbl.tfl',
+		ctl='{mod}/{phy}/{species_group}/codeml.ctl',
+		phy=join(config['phy_dir'], '{phy}.phy')
+	output:
+		codeml='{mod}/{phy}/{species_group}/{phy}.{mod}.out'
+	params: mem='16G', threads='1'
+	message: 'Running CodeML on input file {input.ctl}'
+	version: versioncmd('which codeml | sed "s|.*paml||" | sed "s|/.*||"')
+	log: join('logs', 'codeml', '{mod}', '{phy}', '{species_group}', 'c_codeml.log')
+	run:
+		outputdir = split(output.codeml)[0]
+		ctl_path = abspath(input.ctl)
+		shell('cd {outputdir}; codeml {ctl_path}')
+		
+rule c_codeml:
+	input:
+		species_tree='{mod}/{phy}/{phy}.tfl',
+		ctl='{mod}/{phy}/codeml.ctl',
+		phy=join(config['phy_dir'], '{phy}.phy')
+	output:
+		codeml='{mod}/{phy}/{phy}.{mod}.out'
+	params: mem='16G', threads='1'
+	message: 'Running CodeML on input file {input.ctl}'
+	version: versioncmd('which codeml | sed "s|.*paml||" | sed "s|/.*||"')
+	log: join('logs', 'codeml', '{mod}', '{phy}', 'c_codeml.log')
+	run:
+		outputdir = split(output.codeml)[0]
+		ctl_path = abspath(input.ctl)
+		shell('cd {outputdir}; codeml {ctl_path}')
+
+rule c_mk_ctl_lbl:
+	input:
+		species_tree='{mod}/{phy}/{species_group}/{phy}_lbl.tfl',
+		mod=join(config['mod_dir'], '{mod}.mod'),
+		phy=join(config['phy_dir'], '{phy}.phy')
+	output:
+		ctl='{mod}/{phy}/{species_group}/codeml.ctl'
+	params: mem='1G', threads='1'
+	message: 'Generating control file for branch labelled model {wildcards.mod} and alignment {wildcards.phy}'
+	version: batcave.__version__
+	log: join('logs', 'codeml', '{mod}', '{phy}', '{species_group}', 'c_mk_ctl.log')
+	run:
+		cmp_anc_phy_names(input.species_tree, input.phy)
+		write_control_file(input, output, wildcards)
+				
+rule c_mk_ctl:
+	input:
+		species_tree='{mod}/{phy}/{phy}.tfl',
+		mod=join(config['mod_dir'], '{mod}.mod'),
+		phy=join(config['phy_dir'], '{phy}.phy')
+	output:
+		ctl='{mod}/{phy}/codeml.ctl'
+	params: mem='1G', threads='1'
+	message: 'Generating control file for unlabelled model {wildcards.mod} and alignment {wildcards.phy}'
+	version: batcave.__version__
+	log: join('logs', 'codeml', '{mod}', '{phy}', 'c_mk_ctl.log')
+	run:
+		cmp_anc_phy_names(input.species_tree, input.phy)
+		write_control_file(input, output, wildcards)
+				
+rule c_lbl_species_tree:
+	input:
+		species_tree='{mod}/{phy}/{phy}.tfl',
+		species_group=join(config['branchlbl_dir'], '{species_group}.txt')
+	output:
+		species_tree='{mod}/{phy}/{species_group}/{phy}_lbl.tfl'
+	params: mem='1G', threads='1'
+	message: 'Labelling pruned tree in {input.species_tree} with species in group {wildcards.species_group}'
+	version: batcave.__version__
+	log: join('logs', 'codeml', '{mod}', '{phy}', '{species_group}', 'c_lbl_species_tree.log')
+	run:
+		output_dir = abspath(split(output.species_tree)[0])
+		mkdir_p(output_dir)
+		label_species_tree(input.species_tree, input.species_group, output.species_tree, allow_not_found=True)
+		
+rule c_prune_species_tree:
+	input:
+		species_tree=config['species_tree'],
+		phy=join(config['phy_dir'], '{phy}.phy')
+	output:
+		species_tree='{mod}/{phy}/{phy}.tfl'
+	params: mem='1G', threads='1'
+	message: 'Pruning species tree {input.species_tree} with genes in {input.phy}'
+	version: batcave.__version__
+	log: join('logs', 'codeml', '{mod}', '{phy}', 'c_prune.log')
+	run:
+		output_dir = abspath(split(output.species_tree)[0])
+		mkdir_p(output_dir)
+		prune_species_tree(input.species_tree, input.phy, output.species_tree)
+
+

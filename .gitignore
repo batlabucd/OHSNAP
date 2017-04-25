@@ -1,0 +1,13 @@
+*
+!.gitignore
+!*/
+!Snakefile
+!Snakemake.cmd
+!anc/*
+!branch_lbls/*
+!data/*
+!example/*
+!models/*
+!phy/*
+!proj.config
+!rules/*
