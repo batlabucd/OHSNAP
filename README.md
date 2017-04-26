@@ -63,15 +63,15 @@ The species tree (`data/species.tfl`) is a phylogenetic tree of all species pres
 
 The `phy` directory is a directory of gene alignment files in Phylip format (http://scikit-bio.org/docs/0.2.3/generated/skbio.io.phylip.html), with each file named after the gene and with the extension `.phy`. The sequence ID of each sequence in an alignment is the name of a species present in the species tree (`data/species.tfl`).
 
-The `proj.config` file is a project configuration file. This is what it looks like:
+The `proj.config` file is a project configuration file. Here is a template:
 
 ```
 {
   "branchlbl_dir": "branch_lbls/",
-	"labelled_models": [],
-	"mod_dir": "models/",
-	"phy_dir": "phy/",
-	"species_tree": ""
+  "labelled_models": [],
+  "mod_dir": "models/",
+  "phy_dir": "phy/",
+  "species_tree": ""
 }
 ```
 
