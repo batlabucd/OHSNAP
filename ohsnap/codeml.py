@@ -86,9 +86,12 @@ def get_output_files_phy_names(branchlbl_dir, mod_dir, phy_dir, labelled_models,
 	# present in the map
 	phy_group_map = get_phy_to_group_mapping(branchlbl_dir, phy_dir, phy_ext)
 	# return the list of output filenames for each model and each phy file, for both labelled 
-	# unlabelled models
-	return expand('{mod}/{phy_group_map}.{mod}{ext}', mod=lbl_mod_wcs, phy_group_map=phy_group_map, ext=out_ext) + \
-		expand('{mod}/{phy}/{phy}.{mod}{ext}', mod=mod_wcs, phy=phy_wcs, ext=out_ext)
+	# and unlabelled models
+	labelled_model_outputs = expand('{mod}/{phy_group_map}.{mod}{ext}', mod=lbl_mod_wcs, \
+		phy_group_map=phy_group_map, ext=out_ext)
+	unlabelled_model_outputs = expand('{mod}/{phy}/{phy}.{mod}{ext}', mod=mod_wcs, \
+		phy=phy_wcs, ext=out_ext)
+	return labelled_model_outputs + unlabelled_model_outputs	
 		
 	
 def label_species_tree(input_tree, species_list, output_tree, label='#1', allow_not_found=False):
