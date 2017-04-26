@@ -6,6 +6,7 @@ OHSNAP (**O**ptimised **H**igh-throughput **Sn**akemake **A**utomisation of **P*
 - Snakemake (https://bitbucket.org/snakemake/snakemake/wiki/Home)
 - Biopython (http://biopython.org/)
 - PAML (http://abacus.gene.ucl.ac.uk/software/paml.html)
+
 Optional, recommended:
 - A cluster environment with a batch execution system like PBS, Torque, Open Grid Engine etc.
 
