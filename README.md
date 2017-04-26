@@ -75,7 +75,7 @@ The `proj.config` file is a project configuration file. Here is a template:
 }
 ```
 
-The `branchlbl_dir`, `mod_dir` and `phy_dir` give the paths to the `branch_lbls`, `models` and `phy` directories explained above and don't need to changed if the default directory locations are used. `labelled_models` is a list of models (filenames without the `.mod` file extension) that require branch labels e.g. `"labelled_models": ["alt", "null", "CladeModelC"],`. Lastly, `species_tree` is the path to the Newick tree of all species explained above i.e. `species_tree: "data/species.tfl`.
+The `branchlbl_dir`, `mod_dir` and `phy_dir` variables give the paths to the `branch_lbls`, `models` and `phy` directories explained above and don't need to changed if the default directory locations are used. `labelled_models` is a list of models (filenames without the `.mod` file extension) that require branch labels e.g. `"labelled_models": ["alt", "null", "CladeModelC"],`. Lastly, `species_tree` is the path to the Newick tree of all species explained above i.e. `species_tree: "data/species.tfl`.
 
 `Snakefile` is the `snakemake` workflow file that is executed when running a project.
 
