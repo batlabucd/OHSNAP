@@ -69,7 +69,7 @@ This will create the following files and directories:
 
 The species tree (`data/species.tfl`) is a phylogenetic tree of all species present in the analysis in Newick format (http://scikit-bio.org/docs/0.4.2/generated/skbio.io.format.newick.html).
 
-`branch_lbls` is a directory of `.txt` files, each containing a comma-separated list of species to be used for branch labelled models. In each case, the species tree (`data/species.tfl`) is searched with the list of species for the first common ancestor clade and labelled.
+`branch_lbls` is a directory of `.txt` files, each containing a comma-separated list of species to be used for branch labelled models. In each case, the species tree (`data/species.tfl`) is searched with the list of species for the first common ancestor clade and this clade is labelled for branch analysis.
 
 `models` is a directory of CodeML control file templates for each model to be run. An example model file is here: https://github.com/batlabucd/OHSNAP/blob/master/ohsnap/example/models/CladeModelC.mod. These control file templates contain placeholders e.g. `{phy_fn}`, `{mod}`, `{out_dir}`, that are replaced with values by OHSNAP during run time. They tell CodeML how the inputs are named and how the outputs should be named. They should be present as is in all model files.
 
