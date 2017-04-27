@@ -1,5 +1,5 @@
 # OHSNAP
-OHSNAP (**O**ptimised **H**igh-throughput **Sn**akemake **A**utomisation of **P**AML) is a software tool built using the Snakemake workflow management system to automate and massively parellalise the execution of CodeML.
+OHSNAP (**O**ptimised **H**igh-throughput **Sn**akemake **A**utomisation of **P**AML) is a software tool built using the [Snakemake workflow management](https://bitbucket.org/snakemake/snakemake/wiki/Home) system to automate and massively parellalise the execution of CodeML.
 
 ## Requirements
 - Mac/UNIX/Linux OS
