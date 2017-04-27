@@ -6,12 +6,12 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('project_directory', nargs='?', default=os.getcwd(), \
-	help='Create an example OHSNAP project at this path')
+	help='Perform a dry run check on the OHSNAP project at this path')
 
 
 def ohsnap_check(project_directory):
-	"""Performs a dry run check on the OHSNAP project directory."""
-	subprocess.call(['snakemake -n'], cwd=project_directory, shell=True)
+	"""Performs a dry run check on the OHSNAP project in project_directory."""
+	subprocess.call('snakemake -n', cwd=project_directory, shell=True)
 
 
 def main():

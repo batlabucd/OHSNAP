@@ -1,5 +1,5 @@
 from ohsnap.codeml import cmp_anc_phy_names, get_output_files_phy_names, label_species_tree, prune_species_tree, write_control_file
-from ohsnap.util import checkcmdlist, mkdir_p, versioncmd
+from ohsnap.util import checkcmdlist, mkdir_p, msplit_path, versioncmd
 from os.path import abspath, join, split, splitext
 import ohsnap
 import subprocess
@@ -12,13 +12,26 @@ all_files = locals().get('all_files')
 if all_files is None:
 	all_files = []
 all_files += get_output_files_phy_names(config['branchlbl_dir'], config['mod_dir'], config['phy_dir'], config['labelled_models'])
+all_files += list(map(lambda x: join('output', *msplit_path(x)[2:]), all_files))
 
 
+rule c_mk_output_lbl:
+	input:
+		codeml=join('{mod}', '{phy}', '{species_group}', '{phy}.{mod}.out')
+	output:
+		codeml=join('output', '{species_group}', '{phy}.{mod}.out')
+	params: mem='16G', threads='1'
+	version: '1.0'
+	log: join('logs', 'codeml', 'mk_output.log')
+	run:
+		mkdir_p(split(output.codeml)[0])
+		shell('cp {input.codeml} output/{wildcards.species_group}/')
+		
 rule c_mk_output:
 	input:
-		codeml=get_output_files_phy_names(config['branchlbl_dir'], config['mod_dir'], config['phy_dir'], config['labelled_models'])
+		codeml=join('{mod}', '{phy}', '{phy}.{mod}.out')
 	output:
-		codeml='output/{species_group}/{phy}.{mod}.out'
+		codeml=join('output', '{phy}.{mod}.out')
 	params: mem='16G', threads='1'
 	version: '1.0'
 	log: join('logs', 'codeml', 'mk_output.log')
@@ -28,11 +41,11 @@ rule c_mk_output:
 
 rule c_codeml_lbl:
 	input:
-		species_tree='{mod}/{phy}/{species_group}/{phy}_lbl.tfl',
-		ctl='{mod}/{phy}/{species_group}/codeml.ctl',
+		species_tree=join('{mod}', '{phy}', '{species_group}', '{phy}_lbl.tfl'),
+		ctl=join('{mod}', '{phy}', '{species_group}', 'codeml.ctl'),
 		phy=join(config['phy_dir'], '{phy}.phy')
 	output:
-		codeml='{mod}/{phy}/{species_group}/{phy}.{mod}.out'
+		codeml=join('{mod}', '{phy}', '{species_group}', '{phy}.{mod}.out')
 	params: mem='16G', threads='1'
 	message: 'Running CodeML on input file {input.ctl}'
 	version: versioncmd('which codeml | sed "s|.*paml||" | sed "s|/.*||"')
@@ -44,11 +57,11 @@ rule c_codeml_lbl:
 		
 rule c_codeml:
 	input:
-		species_tree='{mod}/{phy}/{phy}.tfl',
-		ctl='{mod}/{phy}/codeml.ctl',
+		species_tree=join('{mod}', '{phy}', '{phy}.tfl'),
+		ctl=join('{mod}', '{phy}', 'codeml.ctl'),
 		phy=join(config['phy_dir'], '{phy}.phy')
 	output:
-		codeml='{mod}/{phy}/{phy}.{mod}.out'
+		codeml=join('{mod}', '{phy}', '{phy}.{mod}.out')
 	params: mem='16G', threads='1'
 	message: 'Running CodeML on input file {input.ctl}'
 	version: versioncmd('which codeml | sed "s|.*paml||" | sed "s|/.*||"')
@@ -60,11 +73,11 @@ rule c_codeml:
 
 rule c_mk_ctl_lbl:
 	input:
-		species_tree='{mod}/{phy}/{species_group}/{phy}_lbl.tfl',
+		species_tree=join('{mod}', '{phy}', '{species_group}', '{phy}_lbl.tfl'),
 		mod=join(config['mod_dir'], '{mod}.mod'),
 		phy=join(config['phy_dir'], '{phy}.phy')
 	output:
-		ctl='{mod}/{phy}/{species_group}/codeml.ctl'
+		ctl=join('{mod}', '{phy}', '{species_group}', 'codeml.ctl')
 	params: mem='1G', threads='1'
 	message: 'Generating control file for branch labelled model {wildcards.mod} and alignment {wildcards.phy}'
 	version: ohsnap.__version__
@@ -75,11 +88,11 @@ rule c_mk_ctl_lbl:
 				
 rule c_mk_ctl:
 	input:
-		species_tree='{mod}/{phy}/{phy}.tfl',
+		species_tree=join('{mod}', '{phy}', '{phy}.tfl'),
 		mod=join(config['mod_dir'], '{mod}.mod'),
 		phy=join(config['phy_dir'], '{phy}.phy')
 	output:
-		ctl='{mod}/{phy}/codeml.ctl'
+		ctl=join('{mod}', '{phy}', 'codeml.ctl')
 	params: mem='1G', threads='1'
 	message: 'Generating control file for unlabelled model {wildcards.mod} and alignment {wildcards.phy}'
 	version: ohsnap.__version__
@@ -90,10 +103,10 @@ rule c_mk_ctl:
 				
 rule c_lbl_species_tree:
 	input:
-		species_tree='{mod}/{phy}/{phy}.tfl',
+		species_tree=join('{mod}', '{phy}', '{phy}.tfl'),
 		species_group=join(config['branchlbl_dir'], '{species_group}.txt')
 	output:
-		species_tree='{mod}/{phy}/{species_group}/{phy}_lbl.tfl'
+		species_tree=join('{mod}', '{phy}', '{species_group}', '{phy}_lbl.tfl')
 	params: mem='1G', threads='1'
 	message: 'Labelling pruned tree in {input.species_tree} with species in group {wildcards.species_group}'
 	version: ohsnap.__version__

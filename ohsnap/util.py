@@ -43,6 +43,21 @@ def mkdir_p(path):
 		else:
 			raise
 			
+			
+def msplit_path(path):
+	"""Split a path into multiple/all components."""
+	folders = []
+	while 1:
+		path, folder = os.path.split(path)
+		if folder != '':
+			folders.append(folder)
+		else:
+			if path != '':
+				folders.append(path)
+			break
+	folders.reverse()
+	return folders
+			
 
 def versioncmd(cmd):
 	"""Run a command that returns a version number and return a string."""
