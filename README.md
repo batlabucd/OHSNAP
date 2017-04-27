@@ -71,7 +71,7 @@ The species tree (`data/species.tfl`) is a phylogenetic tree of all species pres
 
 `branch_lbls` is a directory of `.txt` files, each containing a comma-separated list of species to be used for branch labelled models. In each case, the species tree (`data/species.tfl`) is searched with the list of species for the first common ancestor clade and labelled.
 
-`models` is a directory of CodeML control file templates for each model to be run. An example model file is here: https://github.com/batlabucd/OHSNAP/blob/master/ohsnap/example/models/CladeModelC.mod. These control file templates contain placeholders e.g. `{phy_fn}`, `{mod}`, `{out_dir}`, that are given values by OHSNAP during run time and should be present in all model files.
+`models` is a directory of CodeML control file templates for each model to be run. An example model file is here: https://github.com/batlabucd/OHSNAP/blob/master/ohsnap/example/models/CladeModelC.mod. These control file templates contain placeholders e.g. `{phy_fn}`, `{mod}`, `{out_dir}`, that are replaced with values by OHSNAP during run time. They tell CodeML how the inputs are named and how the outputs should be named. They should be present as is in all model files.
 
 The `phy` directory is a directory of gene alignment files in Phylip format (http://scikit-bio.org/docs/0.2.3/generated/skbio.io.phylip.html), with each file named after the gene and with the extension `.phy`. The sequence ID of each sequence in an alignment is the name of a species present in the species tree (`data/species.tfl`).
 
