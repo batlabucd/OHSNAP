@@ -110,7 +110,7 @@ optional arguments:
                         execution
 ```
 
-The `ohsnap_run_local` command executes an OHSNAP project on a single node/workstation and optionally accepts the path to an OHSNAP project folder. If none is given, the current directory is checked. If a supplied path or current directory is not an OHSNAP directory, the `ohsnap_run_local` command will exit with an **'Error: Snakefile "Snakefile" not present.'** error message. You can set the number of threads to use for execution with the `--num_threads` option, the default is 1. It is recommended that you allow approximately 16GB of RAM for each CodeML run, so although you might have 4 threads, you should set num_threads to 2 if you only have 32GB of RAM.
+The `ohsnap_run_local` command executes an OHSNAP project on a single node/workstation and optionally accepts the path to an OHSNAP project directory. If none is given, the current directory is checked. If a supplied path or current directory is not an OHSNAP project directory, the `ohsnap_run_local` command will exit with an **'Error: Snakefile "Snakefile" not present.'** error message. You can set the number of threads to use for execution with the `--num_threads` option, the default is 1. It is recommended that you allow approximately 16GB of RAM for each CodeML run, so although you might have 4 threads, you should set num_threads to 2 if you only have 32GB of RAM.
 
 
 
