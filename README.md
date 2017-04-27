@@ -23,7 +23,7 @@ pyvenv /home/username/ohsnap
 source /home/username/ohsnap/bin/activate
 ```
 
-The above will create a Python virtual environment called ohsnap in username's home directory. To use the virtual environment, you will need to source the activate script in the bin directory of the virtual environment each time you login, or add the source command to your `.bashrc`.
+The above will create a Python virtual environment called ohsnap in username's home directory. To use the virtual environment, you will need to source the activate script in the bin directory of the virtual environment each time you login, or add the above source command to your `.bashrc`.
 
 Download OHSNAP and install:
 
