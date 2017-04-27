@@ -16,7 +16,7 @@ Optional, recommended:
 Install Git, Python 3 and PAML, if necessary. 
 
 *Optional*:
-If you want to install OHSNAP in a custom location or as a non-root user, you can use a Python virtual environment. Create one as follows:
+If you want to install OHSNAP in a custom location or as a non-root user, you can do so with a Python virtual environment. Create one as follows:
 
 ```
 pyvenv /home/username/ohsnap
