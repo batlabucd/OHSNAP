@@ -33,7 +33,7 @@ cd OHSNAP
 python3 setup.py install
 ```
 
-This will also install the Snakemake and BioPython dependencies.
+This will also install the Snakemake and Biopython dependencies.
 
 ## Creating an example project
 You can create an example project with the following command:
