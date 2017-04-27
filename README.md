@@ -10,7 +10,7 @@ OHSNAP (**O**ptimised **H**igh-throughput **Sn**akemake **A**utomisation of **P*
 - PAML (http://abacus.gene.ucl.ac.uk/software/paml.html)
 
 Optional, recommended:
-- A cluster environment with a batch execution system like PBS, Torque, Open Grid Engine etc.
+- A cluster environment with a batch execution system like Open Grid Engine (http://gridscheduler.sourceforge.net/), PBS, Torque etc.
 
 ## Installation
 Install Git, Python 3 and PAML, if necessary. 
@@ -91,6 +91,26 @@ The `branchlbl_dir`, `mod_dir` and `phy_dir` variables give the paths to the `br
 
 `Snakefile` is the `snakemake` workflow file that is executed when running a project.
 
+## Running OHSNAP
+
+OHSNAP can be run on a local workstation, with the `ohsnap_run_local` command, or a compute cluster, with the `ohsnap_run_cluster` command.
+
+### `ohsnap_run_local`
+
+```
+usage: ohsnap_run_local [-h] [--num_threads NUM_THREADS] [project_directory]
+
+positional arguments:
+  project_directory     Run the OHSNAP project at this path locally
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --num_threads NUM_THREADS
+                        The maximum number of threads to use for local job
+                        execution
+```
+
+The `ohsnap_run_local` command executes an OHSNAP project on a single node/workstation and optionally accepts the path to an OHSNAP project folder. If none is given, the current directory is checked. If a supplied path or current directory are OHSNAP directories, the `ohsnap_run_local` command with exit with a **"Error: Snakefile "Snakefile" not present."** message. You can set the number of threads to use for execution with the `--num_threads` option, the default is 1. It is recommended that you allow approximately 16GB of RAM for each CodeML run, so although you might have 4 threads, you should set num_threads to 2 if you only have 32GB of RAM.
 
 
 
