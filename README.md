@@ -13,7 +13,19 @@ Optional, recommended:
 - A cluster environment with a batch execution system like PBS, Torque, Open Grid Engine etc.
 
 ## Installation
-Install Git, Python 3 and PAML, if necessary. Download OHSNAP and install:
+Install Git, Python 3 and PAML, if necessary. 
+
+*Optional*:
+If you want too install OHSNAP to a custom location or as a non-root user, you can use a Python virtual environment. Create one as follows:
+
+```
+pyvenv /home/username/ohsnap
+source /home/username/ohsnap/bin/activate
+```
+
+The above will create a Python virtual environment called ohsnap in username's home directory. To use the virtual environment, you will need to source the activate script in the bin directory of the virtual environment each time you login, or add the source command to your `.bashrc`.
+
+Download OHSNAP and install:
 
 ```
 git clone https://github.com/batlabucd/OHSNAP.git
