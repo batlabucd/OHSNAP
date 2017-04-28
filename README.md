@@ -48,6 +48,10 @@ optional arguments:
   -h, --help   show this help message and exit
 ```
 
+```
+ohsnap_example <project_path>
+```
+
 This will create the following files and directories:
 
 ```
