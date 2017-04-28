@@ -52,7 +52,7 @@ optional arguments:
 ohsnap_example <project_path>
 ```
 
-If `<project_path>` exists, the above command will exit with the **FileExistsError: Cannot create project, path <path> exists** error message. Otherwise, the following files and directories will have been created:
+If `<project_path>` exists, the above command will exit with the **FileExistsError: Cannot create project, path /path exists** error message. Otherwise, the following files and directories will have been created:
 
 ```
 <project_path>
@@ -113,7 +113,7 @@ ohsnap_new: error: the following arguments are required: output_path
 ```
 ohsnap_new <project_path>
 ```
-If `<project_path>` exists, the above command will exit with the **FileExistsError: Cannot create project, path <path> exists** error message. Otherwise, the following files and directories will have been created:
+If `<project_path>` exists, the above command will exit with the **FileExistsError: Cannot create project, path /path exists** error message. Otherwise, the following files and directories will have been created:
 
 ```
 <project_path>
