@@ -91,6 +91,32 @@ The `branchlbl_dir`, `mod_dir` and `phy_dir` variables give the paths to the `br
 
 `Snakefile` is the `snakemake` workflow file that is executed when running a project.
 
+## Performing a dry run
+
+You can see exactly what steps will be executed in a project directory using the `ohsnap_check` command. It simply takes the path to an OHSNAP directory as an argument, or if none is given, it assumes the current directory is an OHSNAP project directory. If a supplied path or current directory is not an OHSNAP project directory, the `ohsnap_check` command will exit with an **'Error: Snakefile "Snakefile" not present.'** error message. Here is an example of its output (with omissions for space reasons):
+
+```
+ohsnap_check /path/to/example/project_dir
+
+...
+
+Job counts:
+	count	jobs
+	1	all
+	4	c_codeml
+	24	c_codeml_lbl
+	24	c_lbl_species_tree
+	4	c_mk_ctl
+	24	c_mk_ctl_lbl
+	4	c_mk_output
+	24	c_mk_output_lbl
+	16	c_prune_species_tree
+	125
+
+```
+
+The above shows a summary of the jobs to be run on `project_dir`, which contains data from the included example. There are two versions of each job: with and without *\_lbl*, which refers to analysis done with and without labelled branches. In the example project, there are four sets of gene alignments. From the above, we can conclude that there is 1 model that is run on an unlabelled tree (1 model x 4 genes = 4 codeml jobs). The example data has two sets of species groups/labels: `myotis.txt` and `nmr.txt`, meaning there should be 3 labelled models to be run (3 labelled models x 4 genes x 2 species groups = 24 codeml jobs).
+
 ## Running OHSNAP
 
 OHSNAP can be run on a local workstation, with the `ohsnap_run_local` command, or a compute cluster, with the `ohsnap_run_cluster` command.
@@ -101,13 +127,14 @@ OHSNAP can be run on a local workstation, with the `ohsnap_run_local` command, o
 usage: ohsnap_run_local [-h] [--num_threads NUM_THREADS] [project_directory]
 
 positional arguments:
-  project_directory     Run the OHSNAP project at this path locally
+  project_directory     Run the OHSNAP project at this path locally (default:
+                        current directory)
 
 optional arguments:
   -h, --help            show this help message and exit
   --num_threads NUM_THREADS
                         The maximum number of threads to use for local job
-                        execution
+                        execution (default: 1)
 ```
 
 The `ohsnap_run_local` command executes an OHSNAP project on a single node/workstation and optionally accepts the path to an OHSNAP project directory. If none is given, the current directory is checked. If a supplied path or current directory is not an OHSNAP project directory, the `ohsnap_run_local` command will exit with an **'Error: Snakefile "Snakefile" not present.'** error message. You can set the number of threads to use for execution with the `--num_threads` option, the default is 1. It is recommended that you allow approximately 16GB of RAM for each CodeML run, so although you might have 4 CPU cores, you should set num_threads to 2 if you only have 32GB of RAM.
