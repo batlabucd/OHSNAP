@@ -183,7 +183,7 @@ optional arguments:
                         0:00,mem={params.mem})
 ```
 
-The `ohsnap_run_cluster` command requires a batch execution system, such as, Open Grid Engine, PBS, Torque etc. Jobs are submitted to the batch execution system using the command specified by the `--cluster_cmd` option, the default is:
+The `ohsnap_run_cluster` command requires a batch execution system, such as, Open Grid Engine, PBS, Torque etc. The command executes an OHSNAP project on a compute cluster and optionally accepts the path to an OHSNAP project directory. If none is given, the current directory is checked. If a supplied path or current directory is not an OHSNAP project directory, the ohsnap_run_local command will exit with an 'Error: Snakefile "Snakefile" not present.' error message. The maximum number of jobs submitted to the execution queue at any one time is specified by the `--num_jobs` option, the default is 10. Jobs are submitted to the batch execution system using the command specified by the `--cluster_cmd` option, the default is:
 
 ```
 qsub -j oe -o {log} -l walltime=96:00:00,mem={params.mem}
