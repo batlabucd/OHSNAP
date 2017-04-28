@@ -52,7 +52,7 @@ optional arguments:
 ohsnap_example <project_path>
 ```
 
-If `<project_path>` exists, the above command will exit with **FileExistsError: Cannot create project, path build/ exists** error message. Otherwise, the following files and directories will have been created:
+If `<project_path>` exists, the above command will exit with the **FileExistsError: Cannot create project, path build/ exists** error message. Otherwise, the following files and directories will have been created:
 
 ```
 <project_path>
