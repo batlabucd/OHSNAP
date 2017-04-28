@@ -121,7 +121,7 @@ rule c_prune_species_tree:
 		species_tree=config['species_tree'],
 		phy=join(config['phy_dir'], '{phy}.phy')
 	output:
-		species_tree='{mod}/{phy}/{phy}.tfl'
+		species_tree=join('{mod}', '{phy}', '{phy}.tfl')
 	params: mem='1G'
 	message: 'Pruning species tree {input.species_tree} with genes in {input.phy}'
 	version: ohsnap.__version__
