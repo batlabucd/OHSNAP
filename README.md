@@ -3,7 +3,7 @@ OHSNAP (**O**ptimised **H**igh-throughput **Sn**akemake **A**utomisation of **P*
 
 ## Requirements
 - Mac/UNIX/Linux OS
-- Git
+- Git (https://git-scm.com/)
 - Python 3 (https://www.python.org/download/releases/3.0/)
 - Snakemake (https://bitbucket.org/snakemake/snakemake/wiki/Home)
 - Biopython (http://biopython.org/)
