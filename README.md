@@ -52,7 +52,7 @@ optional arguments:
 ohsnap_example <project_path>
 ```
 
-This will create the following files and directories:
+If `<project_path>` exists, the above command will exit with **FileExistsError: Cannot create project, path build/ exists** error message. Otherwise, the following files and directories will have been created:
 
 ```
 <project_path>
@@ -74,6 +74,31 @@ This will create the following files and directories:
   proj.config
   Snakefile
 ```
+
+## Creating an empty project
+
+Alternatively, you can create a new empty project with the `ohsnap_new` command.
+
+```
+usage: ohsnap_new [-h] output_path
+ohsnap_new: error: the following arguments are required: output_path
+```
+
+```
+ohsnap_new <project_path>
+```
+If `<project_path>` exists, the above command will exit with **FileExistsError: Cannot create project, path build/ exists** error message. Otherwise, the following files and directories will have been created:
+
+```
+<project_path>
+  \branch_lbls
+  \models
+  \phy
+  proj.config
+  Snakefile
+```
+
+The alignments for each gene should be copied into the `phy` directory (each file named after the gene, and each sequence named after each species the sequence is derived) and the model templates into the `models` directory. If any of the models require an input tree with a labelled branch, one or more `.txt` files containing a comma-separated list of species should be copied into the `branch_lbls` directory. The `proj.config` file should be edited to include the path to the species tree (containing all species present in your alignments) and the names of models that require labelled trees. Please see below for a further explanation and examples of the input requirements.
 
 ## Explaining the inputs
 
