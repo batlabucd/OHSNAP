@@ -160,5 +160,35 @@ optional arguments:
 
 The `ohsnap_run_local` command executes an OHSNAP project on a single node/workstation and optionally accepts the path to an OHSNAP project directory. If none is given, the current directory is checked. If a supplied path or current directory is not an OHSNAP project directory, the `ohsnap_run_local` command will exit with an **'Error: Snakefile "Snakefile" not present.'** error message. You can set the number of threads to use for execution with the `--num_threads` option, the default is 1. It is recommended that you allow approximately 16GB of RAM for each CodeML run, so although you might have 4 CPU cores, you should set num_threads to 2 if you only have 32GB of RAM.
 
+### `ohsnap_run_cluster`
+
+```
+usage: ohsnap_run_cluster [-h] [--num_jobs NUM_JOBS]
+                          [--cluster_cmd CLUSTER_CMD]
+                          [project_directory]
+
+positional arguments:
+  project_directory     Run the OHSNAP project at this path on a cluster
+                        environment (default: current directory)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --num_jobs NUM_JOBS   The number of jobs to submit to the cluster execution
+                        system at any one time (default: 10)
+  --cluster_cmd CLUSTER_CMD
+                        The cluster execution system submission command,
+                        usually qsub. Use this option to specify the command,
+                        how to request memory/threads, max walltime on your
+                        cluster (default: qsub -j oe -o {log} -l walltime=96:0
+                        0:00,mem={params.mem})
+```
+
+The `ohsnap_run_cluster` command requires a batch execution system, such as, Open Grid Engine, PBS, Torque etc. Jobs are submitted to the batch execution system using the command specified by the `--cluster_cmd` option, the default is:
+
+```
+qsub -j oe -o {log} -l walltime=96:00:00,mem={params.mem}
+```
+
+`qsub` is the queue submission command to submit jobs to most batch execution systems. The `-j oe -o {log}` options specify that the standard error should be merged with the standard output and this should be directed to `{log}`, which is replaced with a path to a log file specific for each job. The `-l` option specifies the resources for the job. The walltime is the maximum time a job can run for, and in this case it is 96 hours, 0 minutes and 0 seconds. When a job reaches this limit, it will be killed and you may need to increase this limit depending on your input dataset (in most cases, 96 hours is sufficient). The `mem={params.mem}` section of the resource list is the memory requirement of a job and `params.mem` will be a specific value for each job e.g. codeml requests 16GB of memory.
 
 
