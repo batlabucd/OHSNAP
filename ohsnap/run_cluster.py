@@ -4,17 +4,17 @@ import subprocess
 import sys
 
 
-qsub_cmd = 'qsub -j oe -o {log} -l walltime=96:00:00,mem={params.mem},nodes=1:ppn={params.threads}'
+qsub_cmd = 'qsub -j oe -o {log} -l walltime=96:00:00,mem={params.mem}'
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--num_jobs', default=10, \
-	help='The number of jobs to submit to the cluster execution system at any one time')
+	help='The number of jobs to submit to the cluster execution system at any one time (default: 10)')
 parser.add_argument('--cluster_cmd', default=qsub_cmd, \
 	help="""The cluster execution system submission command, usually qsub. Use this option 
-		to specify the command, how to request memory/threads, max walltime on your cluster""")
+		to specify the command, how to request memory/threads, max walltime on your cluster (default: {0})""".format(qsub_cmd))
 parser.add_argument('project_directory', nargs='?', default=os.getcwd(), \
-	help='Run the OHSNAP project at this path on a cluster environment')
+	help='Run the OHSNAP project at this path on a cluster environment (default: current directory)')
 
 
 def ohsnap_runcluster(project_directory, num_jobs, cluster_cmd, latency_wait=60):

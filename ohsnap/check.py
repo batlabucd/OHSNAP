@@ -6,7 +6,7 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('project_directory', nargs='?', default=os.getcwd(), \
-	help='Perform a dry run check on the OHSNAP project at this path')
+	help='Perform a dry run check on the OHSNAP project at this path (default: current directory)')
 
 
 def ohsnap_check(project_directory):
