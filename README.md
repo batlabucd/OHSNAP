@@ -39,7 +39,13 @@ This will also install the Snakemake and Biopython dependencies.
 You can create an example project with the following command:
 
 ```
-ohsnap_example <project_path>
+usage: ohsnap_example [-h] output_path
+
+positional arguments:
+  output_path  Create an example OHSNAP project at this path
+
+optional arguments:
+  -h, --help   show this help message and exit
 ```
 
 This will create the following files and directories:
@@ -94,6 +100,17 @@ The `branchlbl_dir`, `mod_dir` and `phy_dir` variables give the paths to the `br
 ## Performing a dry run
 
 You can see exactly what steps will be executed in a project using the `ohsnap_check` command. It simply takes the path to an OHSNAP directory as an argument, or if none is given, it assumes the current directory is an OHSNAP project directory. If a supplied path or current directory is not an OHSNAP project directory, the `ohsnap_check` command will exit with an **'Error: Snakefile "Snakefile" not present.'** error message. Here is an example of its output (with omissions for space reasons):
+
+```
+usage: ohsnap_check [-h] [project_directory]
+
+positional arguments:
+  project_directory  Perform a dry run check on the OHSNAP project at this
+                     path (default: current directory)
+
+optional arguments:
+  -h, --help         show this help message and exit
+```
 
 ```
 ohsnap_check /path/to/example/project_dir
