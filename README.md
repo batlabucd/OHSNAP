@@ -155,7 +155,7 @@ For convenience, all CodeML output files are copied to a directory called `outpu
 
 ## Performing a dry run
 
-You can see exactly what steps will be executed in a project using the `ohsnap_check` command. It simply takes the path to an OHSNAP directory as an argument, or if none is given, it assumes the current directory is an OHSNAP project directory. If a supplied path or current directory is not an OHSNAP project directory, the `ohsnap_check` command will exit with an **'Error: Snakefile "Snakefile" not present.'** error message. Here is an example of its output (with omissions for space reasons):
+You can see exactly what steps will be executed in a project using the `ohsnap_check` command. It takes the path to an OHSNAP directory as an argument, or if none is given, it assumes the current directory is an OHSNAP project directory. If a supplied path or current directory is not an OHSNAP project directory, the `ohsnap_check` command will exit with an **'Error: Snakefile "Snakefile" not present.'** error message. Here is an example of its output (with omissions for space reasons):
 
 ```
 usage: ohsnap_check [-h] [project_directory]
