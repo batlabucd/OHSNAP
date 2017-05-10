@@ -47,7 +47,6 @@ rule c_codeml_lbl:
 	output:
 		codeml=join('{mod}', '{phy}', '{species_group}', '{phy}.{mod}.out')
 	params: mem='16G'
-	message: 'Running CodeML on input file {input.ctl}'
 	version: versioncmd('which codeml | sed "s|.*paml||" | sed "s|/.*||"')
 	log: join('logs', 'codeml', '{mod}', '{phy}', '{species_group}', 'c_codeml.log')
 	run:
@@ -63,7 +62,6 @@ rule c_codeml:
 	output:
 		codeml=join('{mod}', '{phy}', '{phy}.{mod}.out')
 	params: mem='16G'
-	message: 'Running CodeML on input file {input.ctl}'
 	version: versioncmd('which codeml | sed "s|.*paml||" | sed "s|/.*||"')
 	log: join('logs', 'codeml', '{mod}', '{phy}', 'c_codeml.log')
 	run:
@@ -79,7 +77,6 @@ rule c_mk_ctl_lbl:
 	output:
 		ctl=join('{mod}', '{phy}', '{species_group}', 'codeml.ctl')
 	params: mem='1G'
-	message: 'Generating control file for branch labelled model {wildcards.mod} and alignment {wildcards.phy}'
 	version: ohsnap.__version__
 	log: join('logs', 'codeml', '{mod}', '{phy}', '{species_group}', 'c_mk_ctl.log')
 	run:
@@ -94,7 +91,6 @@ rule c_mk_ctl:
 	output:
 		ctl=join('{mod}', '{phy}', 'codeml.ctl')
 	params: mem='1G'
-	message: 'Generating control file for unlabelled model {wildcards.mod} and alignment {wildcards.phy}'
 	version: ohsnap.__version__
 	log: join('logs', 'codeml', '{mod}', '{phy}', 'c_mk_ctl.log')
 	run:
@@ -108,7 +104,6 @@ rule c_lbl_species_tree:
 	output:
 		species_tree=join('{mod}', '{phy}', '{species_group}', '{phy}_lbl.tfl')
 	params: mem='1G'
-	message: 'Labelling pruned tree in {input.species_tree} with species in group {wildcards.species_group}'
 	version: ohsnap.__version__
 	log: join('logs', 'codeml', '{mod}', '{phy}', '{species_group}', 'c_lbl_species_tree.log')
 	run:
@@ -123,7 +118,6 @@ rule c_prune_species_tree:
 	output:
 		species_tree=join('{mod}', '{phy}', '{phy}.tfl')
 	params: mem='1G'
-	message: 'Pruning species tree {input.species_tree} with genes in {input.phy}'
 	version: ohsnap.__version__
 	log: join('logs', 'codeml', '{mod}', '{phy}', 'c_prune.log')
 	run:

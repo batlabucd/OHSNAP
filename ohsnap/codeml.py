@@ -9,23 +9,23 @@ import os.path
 def cmp_anc_phy_names(species_tree, phy):
 	"""Check the names in the species tree and make sure they match the names in the phy 
 		alignment file."""
-	anc_names = []
+	species_names = []
 	with open(species_tree, 'rU') as f:
 		formatted = f.read()
 		# extract the species names, remove all other notation
 		for c in ['(', ')', ';', '#1']:
 			formatted = formatted.replace(c, '')
-		species_names = list(filter(None, formatted.strip().split(',')))
+		species_names = set(filter(None, formatted.strip().split(',')))
 	# parse the sequence names from the phy file
-	phy_names = list(map(lambda x: x[0], phy_parser(phy)))
+	phy_names = set(map(lambda x: x[0], phy_parser(phy)))
 	# check each species name in the species tree is in the phy file
-	for species_name in species_names:
-		if not species_name in phy_names:
-			raise ValueError('Unknown species name "{0}" {1}'.format(species_name, phy_names))
+	unknown_species = species_names - phy_names
+	if len(unknown_species) > 0:
+		raise ValueError('Unknown species found: "{0}"'.format(unknown_species))
 	# check each sequence name in the phy file is in the species tree
-	for phy_name in phy_names:
-		if not phy_name in species_names:
-			raise ValueError('Unknown phylip name "{0}"'.format(phy_name))
+	unknown_sequences = phy_names - species_names
+	if len(unknown_sequences) > 0:
+		raise ValueError('Unknown sequence names in phy file: "{0}"'.format(unknown_sequences))
 			
 	
 def get_species_groups(branchlbl_dir, blbl_ext='.txt'):
